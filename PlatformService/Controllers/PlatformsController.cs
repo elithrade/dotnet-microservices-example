@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PlatformService.DataSyncServices;
 using PlatformService.Dtos;
 using PlatformService.Models;
 using PlatformService.Repo;
@@ -12,11 +13,16 @@ namespace PlatformService.Controllers
     {
         private readonly IPlatformRepo _repository;
         private IMapper _mapper;
+        private readonly IDataSyncService _dataSyncService;
 
-        public PlatformsController(IPlatformRepo repository, IMapper mapper)
+        public PlatformsController(
+            IPlatformRepo repository,
+            IMapper mapper,
+            IDataSyncService dataSyncService)
         {
             _repository = repository;
             _mapper = mapper;
+            _dataSyncService = dataSyncService;
         }
 
         [HttpGet]
@@ -38,7 +44,7 @@ namespace PlatformService.Controllers
         }
 
         [HttpPost]
-        public ActionResult<PlatformReadDto> Create(PlatformCreateDto dto)
+        public async Task<ActionResult<PlatformReadDto>> Create(PlatformCreateDto dto)
         {
             var model = _mapper.Map<Platform>(dto);
 
@@ -46,6 +52,16 @@ namespace PlatformService.Controllers
             _repository.Commit();
 
             var readDto = _mapper.Map<PlatformReadDto>(model);
+
+            try
+            {
+                await _dataSyncService.SendPlatform(readDto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error occurred while calling data sync service: {ex.InnerException}");
+            }
+
             // Tells client the created resource location.
             return CreatedAtRoute(nameof(Get), new { Id = readDto.Id }, readDto);
         }

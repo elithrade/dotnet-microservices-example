@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CommandService.Controllers
 {
     [ApiController]
-    [Route("api/commands/[controller]")]
+    [Route("api/[controller]")]
     public class PlatformsController : ControllerBase
     {
         public PlatformsController()

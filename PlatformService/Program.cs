@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PlatformService.Context;
+using PlatformService.DataSyncServices;
 using PlatformService.Repo;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,9 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemoryDb"));
 builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
+
+// Register to IHttpClientFactory.
+builder.Services.AddHttpClient<IDataSyncService, HttpDataSyncService>();
 
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
