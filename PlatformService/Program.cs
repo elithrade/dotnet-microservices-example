@@ -34,4 +34,6 @@ app.MapControllers();
 
 PrepDb.PopulateDummyData(app);
 
+Console.WriteLine($"CommandServiceBaseUrl: {builder.Configuration["CommandServiceBaseUrl"]}");
+
 app.Run();
