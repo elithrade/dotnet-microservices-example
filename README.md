@@ -1,5 +1,18 @@
 # A example implementation of Microservices using .NET and Kubernetes
 
+## Commands
+
+### Docker
+- `docker build -t elithrade/platformservice .` will build the local docker image using `latest` tag.
+- `docker push elithrade/platformservice` will push the image to Docker Hub.
+
+### Kubernetes
+- `kubectl get deployments` will get the current deployments.
+- `kubectl get pods` will get the current pods.
+- `kubectl get services` will get the current services.
+- `kubectl apply -f ./k8s/{.yml}` will apply settings in `.yml` file and create resources accordingly.
+- `kubectl rollout restart deployment platforms-depl` will refetch the latest image in Docker Hub and restart the service.
+
 ## Notes
 
 ### Environments
