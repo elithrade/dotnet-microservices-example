@@ -13,6 +13,9 @@
 - `kubectl apply -f ./k8s/{.yml}` will apply settings in `.yml` file and create resources accordingly.
 - `kubectl rollout restart deployment platforms-depl` will refetch the latest image in Docker Hub and restart the service.
 
+## Install `ingress-nginx`
+See link https://kubernetes.github.io/ingress-nginx/deploy/#quick-start for installation on different operating system. After installation remember to update `hosts` file by adding an entry that maps `127.0.0.1` to the `host` defined [ingress-service.yml](./k8s/ingress-service.yml).
+
 ## Notes
 
 ### Environments
