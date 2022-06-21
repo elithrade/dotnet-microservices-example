@@ -1,5 +1,11 @@
 # A example implementation of Microservices using .NET and Kubernetes
 
+This repository contains code demonstrated in the [YouTube](https://www.youtube.com/watch?v=DgVjEo3OGBI) course on Microservices using .NET by Les Jackson.
+
+## Kubernetes Architecture
+
+![Kubernetes](./assets/kube-arch.png)
+
 ## Commands
 
 ### Docker
