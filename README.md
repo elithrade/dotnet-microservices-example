@@ -19,6 +19,7 @@ This repository contains code demonstrated in the [YouTube](https://www.youtube.
 - `kubectl apply -f ./k8s/{.yml}` will apply settings in `.yml` file and create resources accordingly.
 - `kubectl rollout restart deployment platforms-depl` will refetch the latest image in Docker Hub and restart the service.
 - `kubectl get pvc` will get the persistence volume claims.
+- `kubectl create secret generic mssql --from-literal=SA_PASSWORD="{SECRET}"` will create a database `sa` password with name `mssql` and key `SA_PASSWORD`. [platforms-mssql-depl.yml](./k8s/platforms-mssql-depl.yml) will use the secret `mssql` when creating the database.
 
 ## Install `ingress-nginx`
 See link https://kubernetes.github.io/ingress-nginx/deploy/#quick-start for installation on different operating system. After installation remember to update `hosts` file by adding an entry that maps `127.0.0.1` to the `host` defined [ingress-service.yml](./k8s/ingress-service.yml).
