@@ -8,6 +8,11 @@ This repository contains code demonstrated in the [YouTube](https://www.youtube.
 
 ## Commands
 
+### .NET CLI
+
+`dotnet ef` is no longer part of .NET CLI tool, it has to be installed either globally or locally.
+`dotnet tool install --global dotnet-ef`, and ensure `PATH` includes `$HOME/.dotnet/tools` if installed globally.
+
 ### Docker
 - `docker build -t elithrade/platformservice .` will build the local docker image using `latest` tag.
 - `docker push elithrade/platformservice` will push the image to Docker Hub.

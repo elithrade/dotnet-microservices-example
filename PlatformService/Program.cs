@@ -5,8 +5,20 @@ using PlatformService.Repo;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemoryDb"));
+}
+else
+{
+    var connectionString = builder.Configuration.GetConnectionString("PlatformServiceDb");
+    connectionString.Replace("{SA_PASSWORD}", Environment.GetEnvironmentVariable("SA_PASSWORD"));
+    Console.WriteLine($"Db connection string: {connectionString}");
+
+    builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(connectionString));
+}
+
 // Add services to the container.
-builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemoryDb"));
 builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
 
 // Register to IHttpClientFactory.
@@ -28,12 +40,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+PrepDb.PopulateDummyData(app, app.Environment.IsProduction());
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-
-PrepDb.PopulateDummyData(app);
-
-Console.WriteLine($"CommandServiceBaseUrl: {builder.Configuration["CommandServiceBaseUrl"]}");
 
 app.Run();
