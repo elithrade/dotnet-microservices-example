@@ -12,9 +12,9 @@ if (builder.Environment.IsDevelopment())
 else
 {
     var connectionString = builder.Configuration.GetConnectionString("PlatformServiceDb");
-    connectionString.Replace("{SA_PASSWORD}", Environment.GetEnvironmentVariable("SA_PASSWORD"));
-    Console.WriteLine($"Db connection string: {connectionString}");
+    connectionString = connectionString.Replace("{SA_PASSWORD}", Environment.GetEnvironmentVariable("SA_PASSWORD"));
 
+    Console.WriteLine($"Db connection string: {connectionString}");
     builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(connectionString));
 }
 
