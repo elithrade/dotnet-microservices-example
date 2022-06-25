@@ -29,7 +29,7 @@ This repository contains code demonstrated in the [YouTube](https://www.youtube.
 ## Install `ingress-nginx`
 See link https://kubernetes.github.io/ingress-nginx/deploy/#quick-start for installation on different operating system. After installation remember to update `hosts` file by adding an entry that maps `127.0.0.1` to the `host` defined [ingress-service.yml](./k8s/ingress-service.yml).
 
-## Notes
+See link https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/ for how to create `ingress` for `minikube`.
 
 ### Environments
 Environments are configured in `appsettings|{.Env}.json` file. For more details refer to https://docs.microsoft.com/en-us/aspnet/core/fundamentals/environments?view=aspnetcore-6.0 for more details.
