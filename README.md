@@ -6,6 +6,10 @@ This repository contains code demonstrated in the [YouTube](https://www.youtube.
 
 ![Kubernetes](./assets/kube-arch.png)
 
+## Entity Relationship
+
+![EntityRelationship](./assets/commands-platforms.png)
+
 ## Commands
 
 ### .NET CLI
