@@ -33,7 +33,7 @@ namespace CommandService.Data
 
         public IEnumerable<Platform> GetAllPlatforms()
         {
-            throw new NotImplementedException();
+            return _context.Platforms;
         }
 
         public Command? GetCommand(int platformId, int commandId)
