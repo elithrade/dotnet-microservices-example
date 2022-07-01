@@ -44,7 +44,7 @@ if (app.Environment.IsDevelopment())
 
 PrepDb.PopulateDummyData(app, app.Environment.IsProduction());
 
-app.UseHttpsRedirection();
+
 app.UseAuthorization();
 app.MapControllers();
 
