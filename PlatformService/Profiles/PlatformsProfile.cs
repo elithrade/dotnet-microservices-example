@@ -11,6 +11,7 @@ namespace PlatformService.Profiles
             // One way mapping between Platform and PlatformDto.
             CreateMap<Platform, PlatformReadDto>();
             CreateMap<PlatformCreateDto, Platform>();
+            CreateMap<PlatformReadDto, PlatformPublishedDto>();
         }
     }
 }

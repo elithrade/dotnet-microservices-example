@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PlatformService.DataAsyncServices;
 using PlatformService.DataSyncServices;
 using PlatformService.Dtos;
 using PlatformService.Models;
@@ -14,15 +15,18 @@ namespace PlatformService.Controllers
         private readonly IPlatformRepo _repository;
         private IMapper _mapper;
         private readonly IDataSyncService _dataSyncService;
+        private readonly IMessageBusClient _messageBusClient;
 
         public PlatformsController(
             IPlatformRepo repository,
             IMapper mapper,
-            IDataSyncService dataSyncService)
+            IDataSyncService dataSyncService,
+            IMessageBusClient messageBusClient)
         {
             _repository = repository;
             _mapper = mapper;
             _dataSyncService = dataSyncService;
+            _messageBusClient = messageBusClient;
         }
 
         [HttpGet]
@@ -60,6 +64,18 @@ namespace PlatformService.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine($"Error occurred while calling data sync service: {ex.InnerException}");
+            }
+
+            try
+            {
+                var platformPublishedDto = _mapper.Map<PlatformPublishedDto>(readDto);
+                platformPublishedDto.Event = "Platform_Published";
+
+                _messageBusClient.PublishNewPlatform(platformPublishedDto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error occurred while calling message bus client: {ex.Message}");
             }
 
             // Tells client the created resource location.

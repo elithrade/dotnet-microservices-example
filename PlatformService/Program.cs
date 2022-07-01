@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PlatformService.Context;
+using PlatformService.DataAsyncServices;
 using PlatformService.DataSyncServices;
 using PlatformService.Repo;
 
@@ -23,6 +24,7 @@ builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
 
 // Register to IHttpClientFactory.
 builder.Services.AddHttpClient<IDataSyncService, HttpDataSyncService>();
+builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
 
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

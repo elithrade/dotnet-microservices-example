@@ -24,14 +24,21 @@ namespace PlatformService.DataSyncServices
             );
 
             var commandServiceBaseUrl = _config["CommandServiceBaseUrl"];
-            var response = await _client.PostAsync(
-                $"{commandServiceBaseUrl}/api/platforms",
-                content);
+            try
+            {
+                var response = await _client.PostAsync(
+                    $"{commandServiceBaseUrl}/api/commands/platforms",
+                    content);
 
-            if (response.IsSuccessStatusCode)
-                Console.WriteLine($"{typeof(HttpDataSyncService)}: POST to {commandServiceBaseUrl} was successful");
-            else
-                Console.WriteLine($"{typeof(HttpDataSyncService)}: POST to {commandServiceBaseUrl} was NOT successful");
+                if (response.IsSuccessStatusCode)
+                    Console.WriteLine($"{typeof(HttpDataSyncService)}: POST to {commandServiceBaseUrl} was successful");
+                else
+                    Console.WriteLine($"{typeof(HttpDataSyncService)}: POST to {commandServiceBaseUrl} was NOT successful");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }
