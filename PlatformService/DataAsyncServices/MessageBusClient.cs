@@ -11,6 +11,8 @@ namespace PlatformService.DataAsyncServices
         private readonly IConnection _connection;
         private readonly IModel _channel;
 
+        private const string EXCHANGE = "trigger";
+
         public MessageBusClient(IConfiguration config)
         {
             _config = config;
@@ -25,7 +27,7 @@ namespace PlatformService.DataAsyncServices
                 _connection = factory.CreateConnection();
                 _channel = _connection.CreateModel();
 
-                _channel.ExchangeDeclare(exchange: "trigger", type: ExchangeType.Fanout);
+                _channel.ExchangeDeclare(exchange: EXCHANGE, type: ExchangeType.Fanout);
                 _connection.ConnectionShutdown += OnConnectionShutdown;
             }
             catch (Exception ex)
@@ -56,7 +58,7 @@ namespace PlatformService.DataAsyncServices
             var body = Encoding.UTF8.GetBytes(message);
 
             _channel.BasicPublish(
-                exchange: "trigger",
+                exchange: EXCHANGE,
                 routingKey: string.Empty,
                 basicProperties: null,
                 body: body);
