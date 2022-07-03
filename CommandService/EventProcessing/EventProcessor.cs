@@ -51,6 +51,7 @@ namespace CommandService.EventProcessing
                         return;
                     }
                     repo.CreatePlatform(platform);
+                    repo.Commit();
                 }
                 catch (Exception ex)
                 {

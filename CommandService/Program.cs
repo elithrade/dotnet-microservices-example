@@ -1,3 +1,4 @@
+using CommandService.BackgroundServices;
 using CommandService.Data;
 using CommandService.EventProcessing;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemoryDb"));
 builder.Services.AddScoped<ICommandRepo, CommandRepo>();
+builder.Services.AddHostedService<MessageBusSubscriber>();
 
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
