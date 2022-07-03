@@ -29,7 +29,7 @@ namespace CommandService.Controllers
             return Ok(_mapper.Map<IEnumerable<CommandReadDto>>(commands));
         }
 
-        [HttpGet("{commandId}")]
+        [HttpGet("{commandId}", Name = "Get")]
         public ActionResult<CommandReadDto> Get(int platformId, int commandId)
         {
             if (!_repo.PlatformExists(platformId)) return NotFound($"Platform with id {platformId} does not exist");
