@@ -25,6 +25,7 @@ builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
 // Register to IHttpClientFactory.
 builder.Services.AddHttpClient<IDataSyncService, HttpDataSyncService>();
 builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
+builder.Services.AddGrpc();
 
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -46,6 +47,8 @@ PrepDb.PopulateDummyData(app, app.Environment.IsProduction());
 
 
 app.UseAuthorization();
+
 app.MapControllers();
+app.MapGrpcService<GrpcPlatformService>();
 
 app.Run();
