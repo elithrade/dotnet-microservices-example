@@ -1,6 +1,7 @@
 using AutoMapper;
 using CommandService.Dtos;
 using CommandService.Models;
+using PlatformService;
 
 namespace CommandService.Profiles
 {
@@ -15,6 +16,11 @@ namespace CommandService.Profiles
             // Map PlatformPublishedDto.Id -> Platform.ExternalId.
             CreateMap<PlatformPublishedDto, Platform>()
                 .ForMember(dest => dest.ExternalId, opt => opt.MapFrom(src => src.Id));
+            // PlatformId -> ExternalId.
+            CreateMap<GrpcPlatformModel, Platform>()
+                .ForMember(dest => dest.ExternalId, opt => opt.MapFrom(src => src.PlatformId))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Commands, opt => opt.Ignore());
         }
     }
 }
