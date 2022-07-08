@@ -4,6 +4,6 @@ namespace CommandService.DataSyncServices.Grpc
 {
     public interface IPlatformDataClient
     {
-        IEnumerable<Platform> ReturnAllPlatforms();
+        IEnumerable<Platform>? ReturnAllPlatforms();
     }
 }

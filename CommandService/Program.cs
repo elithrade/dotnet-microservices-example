@@ -33,4 +33,6 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 app.MapControllers();
 
+PrepDb.PopulateData(app);
+
 app.Run();

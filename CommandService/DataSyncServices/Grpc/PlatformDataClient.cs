@@ -16,10 +16,15 @@ namespace CommandService.DataSyncServices.Grpc
             _mapper = mapper;
         }
 
-        public IEnumerable<Platform> ReturnAllPlatforms()
+        public IEnumerable<Platform>? ReturnAllPlatforms()
         {
             Console.WriteLine($"Calling Grpc service {_config["GrpcPlatform"]}");
-            var channel = GrpcChannel.ForAddress(_config["GrpcPlatform"]);
+
+            // Bypass PartialChain cert error.
+            var httpHandler = new HttpClientHandler();
+            httpHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+
+            var channel = GrpcChannel.ForAddress(_config["GrpcPlatform"], new GrpcChannelOptions { HttpHandler = httpHandler });
             var client = new GrpcPlatform.GrpcPlatformClient(channel);
             var request = new GetAllRequest();
 
